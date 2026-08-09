@@ -1,6 +1,4 @@
-<!-- Copy this file to README.md in the future nagackc/nagackc profile repository after approving public profile details. -->
-
-# Hi, I'm @nagackc
+# Hi, I'm Karl Christian Nagac
 
 Software Developer building practical and reliable applications.
 
@@ -25,9 +23,6 @@ I learn by turning real problems into complete projects. I care about clear inte
 - [Technology] through [specific project or outcome]
 -->
 
-<!-- Publish contact details only after approving the exact public values.
 ## Contact
 
-- LinkedIn: [approved URL]
-- Email: [approved professional address]
--->
+- Email: [Karlchristiannagac@gmail.com](mailto:Karlchristiannagac@gmail.com)
