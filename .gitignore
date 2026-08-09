@@ -1,0 +1,34 @@
+# Local configuration and secrets
+/config/database.local.php
+.env
+.env.*
+!.env.example
+
+# Runtime and generated files
+/assets/uploads/*
+!/assets/uploads/.htaccess
+!/assets/uploads/.gitkeep
+/exports/
+/logs/
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# Dependencies and test/build output
+/vendor/
+/node_modules/
+/.phpunit.cache/
+/coverage/
+/build/
+/dist/
+
+# Temporary and editor files
+*.tmp
+*.temp
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

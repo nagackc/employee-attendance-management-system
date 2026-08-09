@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: eams_ci
+          MYSQL_ROOT_PASSWORD: ci-root-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pci-root-password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      EAMS_DB_HOST: 127.0.0.1
+      EAMS_DB_PORT: 3306
+      EAMS_DB_NAME: eams_ci
+      EAMS_DB_USER: root
+      EAMS_DB_PASS: ci-root-password
+      EAMS_ADMIN_EMAIL: admin@example.test
+      EAMS_ADMIN_PASSWORD: CI-only-password-2026
+      EAMS_ADMIN_COMPANY: EAMS Demo Company
+      EAMS_TEST_DATABASE_NAME: eams_ci
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, dom, fileinfo, gd, mbstring, pdo_mysql
+          coverage: none
+
+      - name: Validate project metadata
+        run: composer validate --strict
+
+      - name: Run static and helper checks
+        run: composer check
+
+      - name: Install a fresh database
+        run: composer install-app
+
+      - name: Apply migrations twice
+        run: |
+          composer migrate
+          composer migrate
+
+      - name: Run database integration tests
+        run: composer test:integration

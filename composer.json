@@ -1,0 +1,31 @@
+{
+  "name": "nagackc/employee-attendance-management-system",
+  "description": "A role-based employee attendance, leave, and payroll-readiness application.",
+  "license": "proprietary",
+  "type": "project",
+  "require": {
+    "php": ">=8.3",
+    "ext-curl": "*",
+    "ext-dom": "*",
+    "ext-fileinfo": "*",
+    "ext-gd": "*",
+    "ext-mbstring": "*",
+    "ext-pdo": "*"
+  },
+  "scripts": {
+    "lint": "@php scripts/lint.php",
+    "install-app": "@php install.php",
+    "migrate": "@php scripts/migrate.php",
+    "seed-demo": "@php scripts/seed_demo.php",
+    "test:helpers": "@php tests/company_logo_helpers.php",
+    "test:integration": "@php tests/integration_attendance.php",
+    "check": [
+      "@lint",
+      "@test:helpers",
+      "node --check assets/js/app.js"
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
