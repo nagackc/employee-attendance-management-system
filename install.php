@@ -345,6 +345,11 @@ try {
         $upsert->execute([$key, $value]);
     }
 
+    $insertLeaveType = $pdo->prepare('INSERT IGNORE INTO leave_types (name, active) VALUES (?, 1)');
+    foreach (['Annual Leave', 'Sick Leave'] as $leaveTypeName) {
+        $insertLeaveType->execute([$leaveTypeName]);
+    }
+
     if (!columnExists($pdo, 'attendance', 'break_start')) {
         $pdo->exec('ALTER TABLE attendance ADD COLUMN break_start DATETIME NULL AFTER time_out');
     }
